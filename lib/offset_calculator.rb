@@ -63,8 +63,4 @@ class OffsetCalculator
     @d_rotation = @key.d + @d_offset
   end
 
-
-
-
-
 end

@@ -95,10 +95,4 @@ class OffsetCalculatorTest < Minitest::Test
   end
 
 
-
-
-
-
-
-
 end
