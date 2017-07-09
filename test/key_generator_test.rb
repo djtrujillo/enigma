@@ -18,7 +18,7 @@ class KeyGeneratorTest <Minitest::Test
     assert_equal key[0..1].join('').to_i, a
   end
 
-  def test_b_rotation_eqauls_second_two_key_indexes
+  def test_b_rotation_equals_second_two_key_indexes
     key_generator = KeyGenerator.new
     key = key_generator.key
     b = key_generator.b
@@ -26,15 +26,15 @@ class KeyGeneratorTest <Minitest::Test
     assert_equal key[1..2].join('').to_i, b
   end
 
-  def test_c_rotation_eqauls_second_two_key_indexes
+  def test_c_rotation_equals_second_two_key_indexes
     key_generator = KeyGenerator.new
     key = key_generator.key
     c = key_generator.c
-
+  
     assert_equal key[2..3].join('').to_i, c
   end
 
-  def test_d_rotation_eqauls_second_two_key_indexes
+  def test_d_rotation_equals_second_two_key_indexes
     key_generator = KeyGenerator.new
     key = key_generator.key
     d = key_generator.d
