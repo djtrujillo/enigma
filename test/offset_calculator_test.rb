@@ -71,12 +71,28 @@ class OffsetCalculatorTest < Minitest::Test
     offset = OffsetCalculator.new(key)
     offset.reformat_date
     offset.squared_date
+    offset.find_offsets
 
-    
+    assert_equal 2, offset.a_offset
+    assert_equal 5, offset.b_offset
+    assert_equal 4, offset.c_offset
+    assert_equal 4, offset.d_offset
+  end
 
+  def test_final_rotation_numbers
+    key_generator = KeyGenerator.new
+    key = key_generator
+    offset = OffsetCalculator.new(key)
+    offset.reformat_date
+    offset.squared_date
+    offset.find_offsets
+    offset.add_offsets_to_rotation
 
-
-
+    assert_equal (offset.key.a + 2), offset.a_rotation
+    assert_equal (offset.key.b + 5), offset.b_rotation
+    assert_equal (offset.key.c + 4), offset.c_rotation
+    assert_equal (offset.key.d + 4), offset.d_rotation
+  end
 
 
 end
