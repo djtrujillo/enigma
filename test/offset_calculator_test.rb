@@ -65,6 +65,16 @@ class OffsetCalculatorTest < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_find_offsets
+    key_generator = KeyGenerator.new
+    key = key_generator
+    offset = OffsetCalculator.new(key)
+    offset.reformat_date
+    offset.squared_date
+
+    
+
+
 
 
 

@@ -32,10 +32,11 @@ class OffsetCalculator
   def find_offsets
     last_four_string = last_4_digits.to_s
 
-    a = last_four_string[-4].to_i
-    a = last_four_string[-3].to_i
-    a = last_four_string[-2].to_i
-    a = last_four_string[-1].to_i
+    a_offset = last_four_string[-4].to_i
+    b_offset = last_four_string[-3].to_i
+    c_offset = last_four_string[-2].to_i
+    d_offset = last_four_string[-1].to_i
+  end
 
 
 
