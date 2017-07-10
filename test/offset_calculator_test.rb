@@ -22,23 +22,14 @@ class OffsetCalculatorTest < Minitest::Test
     assert_instance_of KeyGenerator, offset.key
   end
 
-  def test_offset_calculator_initiates_with_date
+  def test_reformat_date_returns_date_like_010117
     key_generator = KeyGenerator.new
     key = key_generator
-    offset = OffsetCalculator.new(key)
-
-    assert_equal Date.new, offset.date
-
-  end
-
-  def test_reformat_date_returns_date_like_01012017
-    key_generator = KeyGenerator.new
-    key = key_generator
-    offset = OffsetCalculator.new(key)
+    offset = OffsetCalculator.new(key, Date.new(2017, 07, 10))
 
     date = offset.reformat_date
 
-    assert_equal 10112, date
+    assert_equal 100717, date
   end
 
   def test_square_the_date_method
@@ -49,17 +40,16 @@ class OffsetCalculatorTest < Minitest::Test
 
     squared_date = offset.squared_date
 
-    assert_equal 102252544, squared_date
+    assert_equal 10143914089, squared_date
   end
 
   def test_find_last_4_digits
     key_generator = KeyGenerator.new
     key = key_generator
     offset = OffsetCalculator.new(key)
-    offset.reformat_date
-    offset.squared_date
+    offset.run_methods
 
-    expected = 2544
+    expected = '4089'
     actual = offset.last_4_digits
 
     assert_equal expected, actual
@@ -69,29 +59,24 @@ class OffsetCalculatorTest < Minitest::Test
     key_generator = KeyGenerator.new
     key = key_generator
     offset = OffsetCalculator.new(key)
-    offset.reformat_date
-    offset.squared_date
-    offset.find_offsets
+    offset.run_methods
 
-    assert_equal 2, offset.a_offset
-    assert_equal 5, offset.b_offset
-    assert_equal 4, offset.c_offset
-    assert_equal 4, offset.d_offset
+    assert_equal 4, offset.find_offsets[0]
+    assert_equal 0, offset.find_offsets[1]
+    assert_equal 8, offset.find_offsets[2]
+    assert_equal 9, offset.find_offsets[3]
   end
 
   def test_final_rotation_numbers
     key_generator = KeyGenerator.new
     key = key_generator
     offset = OffsetCalculator.new(key)
-    offset.reformat_date
-    offset.squared_date
-    offset.find_offsets
-    offset.add_offsets_to_rotation
+    offset.run_methods
 
-    assert_equal (offset.key.a + 2), offset.a_rotation
-    assert_equal (offset.key.b + 5), offset.b_rotation
-    assert_equal (offset.key.c + 4), offset.c_rotation
-    assert_equal (offset.key.d + 4), offset.d_rotation
+    assert_equal (offset.key.a + 4), offset.a_rotation
+    assert_equal (offset.key.b + 0), offset.b_rotation
+    assert_equal (offset.key.c + 8), offset.c_rotation
+    assert_equal (offset.key.d + 9), offset.d_rotation
   end
 
 
