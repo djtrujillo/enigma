@@ -79,5 +79,5 @@ class OffsetCalculatorTest < Minitest::Test
     assert_equal (offset.key.d + 9), offset.d_rotation
   end
 
-
+#offsetCalculator.new(key, Date.new(2017, 7, 1)
 end
