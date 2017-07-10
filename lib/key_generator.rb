@@ -13,10 +13,4 @@ class KeyGenerator
     @d = @key.values_at(3,4).join('').to_i
   end
 
-
-
-  # initialize method, key that is a 5 digit number
-  # initialize that key to an array of numbers
-  # assign the first two indexes of that array to the variable A
-  # second and third indexes will be B and so on...
 end

@@ -14,6 +14,25 @@ class EncryptTest <Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_method_turns_message_into_array_of_characters
+    e = Enigma.new
+    message = "hello"
+    message_array = e.message_array(message)
+
+    assert_equal ["h","e","l","l","o"], message_array
+  end
+
+  def test_create_hash_with_abcd
+    e = Enigma.new
+    message = "hello"
+    message_hash = e.message_hash(message)
+
+    assert_equal {"h"=> "A", "e" => "B" "l" => "C", "l" => "D", "o" => "A"}, message_hash
+  end
+
+
+  end
+
 
 
 
