@@ -9,7 +9,15 @@ class OffsetCalculator
 
   def initialize(key, date = Date.today)
     @key = key
+<<<<<<< HEAD
     @date = date
+=======
+    # @a_rotation
+    # @b_rotation
+    # @c_rotation
+    # @d_rotation
+
+>>>>>>> 77afc359b3c9e5c718391feb472822dc72ee7f9f
   end
 
   def reformat_date
