@@ -3,8 +3,9 @@ require 'pry'
 class Enigma
   attr_accessor :character_map
 
-  def initialize # key = KeyGenerator.new, offset = OffsetCalculator.new
+  def initialize(offset = OffsetCalculator.new)# key = KeyGenerator.new, offset = OffsetCalculator.new
     @character_map = [*("a".."z"), *("0".."9"), " ", ".", ","]
+    @offset = offset
     # @key = key
     # @offset = offset
 
@@ -26,31 +27,32 @@ class Enigma
     cipher_for_rotation.key(letter)
   end
 
-  def encrypt (message, offset_calculator)
+  def encrypt (message, key = @offset.key, date = @offset.date)
+    # offset = OffsetCalculator.new(key, date)
     message_array = message_array(message)
     encrypted_array = message_array.each_with_index.map do |letter, index|
-      encrypt_letter(letter, assign_letter_rotation(index, offset_calculator))
+      encrypt_letter(letter, assign_letter_rotation(index, @offset))
     end
     encrypted_array.join
   end
 
-  def decrypt (message, offset_calculator)
+  def decrypt (message)
     message_array = message_array(message)
     decrypted_string = message_array.each_with_index.map do |letter, index|
-      decrypt_letter(letter, assign_letter_rotation(index, offset_calculator))
+      decrypt_letter(letter, assign_letter_rotation(index, @offset))
     end
     decrypted_string.join
   end
 
-  def assign_letter_rotation(index, offset_calculator)
+  def assign_letter_rotation(index, offset)
     if index    % 4 == 0
-      rotation = offset_calculator.a_rotation
+      rotation = @offset.a_rotation
     elsif index % 4 == 1
-      rotation = offset_calculator.b_rotation
+      rotation = @offset.b_rotation
     elsif index % 4 == 2
-      rotation = offset_calculator.c_rotation
+      rotation = @offset.c_rotation
     elsif index % 4 == 3
-      rotation = offset_calculator.d_rotation
+      rotation = @offset.d_rotation
     else
     end
     rotation

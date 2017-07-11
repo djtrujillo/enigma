@@ -5,11 +5,17 @@ class OffsetCalculator
               :a_rotation,
               :b_rotation,
               :c_rotation,
-              :d_rotation
+              :d_rotation,
+              :date
 
-  def initialize(key, date = Date.today)
-    @key = key
+  def initialize(key = KeyGenerator.new, date = Date.today)
+    @key_generator = key
+    @key = key.key
     @date = date
+    reformat_date
+    squared_date
+    find_offsets
+    add_offsets_to_rotation
   end
 
   def reformat_date
@@ -34,18 +40,18 @@ class OffsetCalculator
   end
 
   def add_offsets_to_rotation
-    @a_rotation = @key.a + find_offsets[0]
-    @b_rotation = @key.b + find_offsets[1]
-    @c_rotation = @key.c + find_offsets[2]
-    @d_rotation = @key.d + find_offsets[3]
+    @a_rotation = @key_generator.a + find_offsets[0]
+    @b_rotation = @key_generator.b + find_offsets[1]
+    @c_rotation = @key_generator.c + find_offsets[2]
+    @d_rotation = @key_generator.d + find_offsets[3]
 
   end
 
-  def run_methods
-    reformat_date
-    squared_date
-    find_offsets
-    add_offsets_to_rotation
-  end
+  # def run_methods
+  #   reformat_date
+  #   squared_date
+  #   find_offsets
+  #   add_offsets_to_rotation
+  # end
 
 end

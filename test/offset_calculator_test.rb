@@ -6,9 +6,7 @@ require 'date'
 
 class OffsetCalculatorTest < Minitest::Test
   def test_offset_calculator_exists
-    key_generator = KeyGenerator.new
-    key = key_generator.key
-    offset = OffsetCalculator.new(key)
+    offset = OffsetCalculator.new
 
     assert_instance_of OffsetCalculator, offset
   end
@@ -47,7 +45,6 @@ class OffsetCalculatorTest < Minitest::Test
     key_generator = KeyGenerator.new
     key = key_generator
     offset = OffsetCalculator.new(key)
-    offset.run_methods
 
     expected = '4089'
     actual = offset.last_4_digits
@@ -59,7 +56,6 @@ class OffsetCalculatorTest < Minitest::Test
     key_generator = KeyGenerator.new
     key = key_generator
     offset = OffsetCalculator.new(key)
-    offset.run_methods
 
     assert_equal 4, offset.find_offsets[0]
     assert_equal 0, offset.find_offsets[1]
@@ -71,7 +67,6 @@ class OffsetCalculatorTest < Minitest::Test
     key_generator = KeyGenerator.new([1,2,3,4,5])
     key = key_generator
     offset = OffsetCalculator.new(key)
-    offset.run_methods
 
     assert_equal (12 + 4), offset.a_rotation
     assert_equal (23 + 0), offset.b_rotation

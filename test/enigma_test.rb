@@ -46,37 +46,34 @@ class EncryptTest <Minitest::Test
   end
 
   def test_encrypt_message
-    e = Enigma.new
     key = KeyGenerator.new([1,1,1,1,1])
     offset_calculator = OffsetCalculator.new(key)
-    offset_calculator.run_methods
+    e = Enigma.new(offset_calculator)
     message = "he"
 
-    actual = e.encrypt(message, offset_calculator)
+    actual = e.encrypt(message)
 
     assert_equal actual, "wp"
   end
 
   def test_encrypt_message_with_differet_key
-    e = Enigma.new
     key = KeyGenerator.new([1,2,3,4,5])
     offset_calculator = OffsetCalculator.new(key, Date.new(2017,7,10))
-    offset_calculator.run_methods
+    e = Enigma.new(offset_calculator)
     message = "he"
 
-    actual = e.encrypt(message, offset_calculator)
+    actual = e.encrypt(message)
 
     assert_equal actual, "x1"
   end
 
   def test_decrypt_message
-    e = Enigma.new
     key = KeyGenerator.new([1,1,1,1,1])
     offset_calculator = OffsetCalculator.new(key)
-    offset_calculator.run_methods
+    e = Enigma.new(offset_calculator)
     message = "wp"
 
-    actual = e.decrypt(message, offset_calculator)
+    actual = e.decrypt(message)
 
     assert_equal actual, "he"
   end
@@ -92,14 +89,13 @@ class EncryptTest <Minitest::Test
   end
 
   def test_encrypt_and_decrypt_hello_world
-    e = Enigma.new
     key = KeyGenerator.new([3,2,3,4,5])
     offset_calculator = OffsetCalculator.new(key, Date.new(2017,7,10))
-    offset_calculator.run_methods
+    e = Enigma.new(offset_calculator)
     message = "hello world"
 
-    output = e.encrypt(message, offset_calculator)
-    actual = e.decrypt(output, offset_calculator)
+    output = e.encrypt(message)
+    actual = e.decrypt(output)
 
     assert_equal message, actual
   end
@@ -153,5 +149,25 @@ class EncryptTest <Minitest::Test
   #   puts offset.c_rotation.inspect
   #   puts offset.d_rotation.inspect
   # end
+
+
+  def test_encrypt_method_displays_encrypted_message
+    e = Enigma.new
+    my_message = "this is so secret ..end.."
+    output = e.encrypt(my_message)
+    # puts output
+
+    assert_equal my_message.length, output.length
+  end
+
+  def test_encrypt_method_can_take_key_and_date
+    e = Enigma.new
+    my_message = "this is so secret ..end.."
+    output = e.encrypt(my_message, "12345", Date.today)
+
+    assert_equal my_message.length, output.length
+  end
+
+
 
 end
