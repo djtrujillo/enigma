@@ -26,15 +26,6 @@ class EncryptTest <Minitest::Test
     assert_equal ["h","e","l","l","o"], message_array
   end
 
-  # def test_rotate_each_character_two
-  #   e = Enigma.new
-  #   message = "hello"
-  #
-  #   expected = "jgnnq"
-  #   actual = e.encrypt(message, 2)
-  #
-  #   assert_equal expected, actual
-  # end
   def test_encrypt_message
     e = Enigma.new
     key = KeyGenerator.new
@@ -42,11 +33,13 @@ class EncryptTest <Minitest::Test
     offset_calculator.run_methods
     message = "hello"
 
-
     actual = e.encrypt(message, offset_calculator)
 
     assert_equal actual, actual
   end
+
+
+
 
     #think about index number instead of ABCD index % 4 == 2 use C rotation
 

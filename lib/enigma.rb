@@ -5,8 +5,6 @@ class Enigma
 
   def initialize
     @character_map = [*("a".."z"), *(0..9), " ", ".", ","]
-    @encryptor
-
   end
 
   def cipher(rotation)
@@ -21,22 +19,26 @@ class Enigma
 
   def encrypt (message, offset_calculator)
     message_array = message_array(message)
-    encrypted_string = message_array.collect do |x|
-      if message_array.index(x) == 0
-        rotation = offset_calculator.a_rotation
-      elsif message_array.index(x) % 4 == 1
-        rotation = offset_calculator.b_rotation
-      elsif message_array.index(x) % 4 == 2
-        rotation = offset_calculator.c_rotation
-      elsif message_array.index(x) % 4 == 3
-        rotation = offset_calculator.d_rotation
-      else
-      end
-      encrypt_letter(x, rotation)
+    encrypted_string = message_array.map do |letter|
+      encrypt_letter(letter, assign_letter_rotation(message_array, letter, offset_calculator))
     end
-    return encrypted_string.join
+    encrypted_string.join
   end
 
+
+  def assign_letter_rotation(message_array, letter, offset_calculator )
+    if message_array.index(letter)    % 4 == 0
+      rotation = offset_calculator.a_rotation
+    elsif message_array.index(letter) % 4 == 1
+      rotation = offset_calculator.b_rotation
+    elsif message_array.index(letter) % 4 == 2
+      rotation = offset_calculator.c_rotation
+    elsif message_array.index(letter) % 4 == 3
+      rotation = offset_calculator.d_rotation
+    else
+    end
+    rotation
+  end
 
 
   def decrypt(output)
