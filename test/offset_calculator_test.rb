@@ -22,14 +22,14 @@ class OffsetCalculatorTest < Minitest::Test
     assert_instance_of KeyGenerator, offset.key
   end
 
-  def test_reformat_date_returns_date_like_01012017
+  def test_reformat_date_returns_date_like_010117
     key_generator = KeyGenerator.new
     key = key_generator
-    offset = OffsetCalculator.new(key)
+    offset = OffsetCalculator.new(key, Date.new(2017, 07, 10))
 
     date = offset.reformat_date
 
-    assert_equal 70117, date
+    assert_equal 100717, date
   end
 
   def test_square_the_date_method
@@ -40,7 +40,7 @@ class OffsetCalculatorTest < Minitest::Test
 
     squared_date = offset.squared_date
 
-    assert_equal 4916393689, squared_date
+    assert_equal 10143914089, squared_date
   end
 
   def test_find_last_4_digits
@@ -49,7 +49,7 @@ class OffsetCalculatorTest < Minitest::Test
     offset = OffsetCalculator.new(key)
     offset.run_methods
 
-    expected = '3689'
+    expected = '4089'
     actual = offset.last_4_digits
 
     assert_equal expected, actual
@@ -61,8 +61,8 @@ class OffsetCalculatorTest < Minitest::Test
     offset = OffsetCalculator.new(key)
     offset.run_methods
 
-    assert_equal 3, offset.find_offsets[0]
-    assert_equal 6, offset.find_offsets[1]
+    assert_equal 4, offset.find_offsets[0]
+    assert_equal 0, offset.find_offsets[1]
     assert_equal 8, offset.find_offsets[2]
     assert_equal 9, offset.find_offsets[3]
   end
@@ -73,8 +73,8 @@ class OffsetCalculatorTest < Minitest::Test
     offset = OffsetCalculator.new(key)
     offset.run_methods
 
-    assert_equal (offset.key.a + 3), offset.a_rotation
-    assert_equal (offset.key.b + 6), offset.b_rotation
+    assert_equal (offset.key.a + 4), offset.a_rotation
+    assert_equal (offset.key.b + 0), offset.b_rotation
     assert_equal (offset.key.c + 8), offset.c_rotation
     assert_equal (offset.key.d + 9), offset.d_rotation
   end

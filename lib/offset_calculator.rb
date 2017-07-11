@@ -7,18 +7,22 @@ class OffsetCalculator
               :c_rotation,
               :d_rotation
 
-  def initialize(key)
+  def initialize(key, date = Date.today)
     @key = key
+<<<<<<< HEAD
+    @date = date
+=======
     # @a_rotation
     # @b_rotation
     # @c_rotation
     # @d_rotation
 
+>>>>>>> 77afc359b3c9e5c718391feb472822dc72ee7f9f
   end
 
   def reformat_date
-    date = Date.new(2017,7,01)
-    string = "#{date.mon}#{date.mday.to_s.rjust(2, "0")}#{date.year.to_s[-2..-1]}"
+    @date
+    string = "#{@date.mday}#{@date.mon.to_s.rjust(2, "0")}#{@date.year.to_s[-2..-1]}"
     string.to_i
   end
 

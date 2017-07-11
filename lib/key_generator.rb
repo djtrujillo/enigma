@@ -12,5 +12,5 @@ class KeyGenerator
     @c = @key.values_at(2,3).join('').to_i
     @d = @key.values_at(3,4).join('').to_i
   end
-
+ 
 end
