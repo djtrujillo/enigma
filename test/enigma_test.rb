@@ -26,21 +26,36 @@ class EncryptTest <Minitest::Test
     assert_equal ["h","e","l","l","o"], message_array
   end
 
-  def test_encrypt_message
+  def test_encrypt_letter
     e = Enigma.new
-    key = KeyGenerator.new
+    letter = "a"
+
+    expected = "c"
+    actual = e.encrypt_letter(letter, 2)
+
+    assert_equal expected, actual
+  end
+
+  def test_encrypt_message
+    skip
+    e = Enigma.new
+    key = KeyGenerator.new([1,2,3,4,5])
     offset_calculator = OffsetCalculator.new(key)
     offset_calculator.run_methods
     message = "hello"
 
     actual = e.encrypt(message, offset_calculator)
 
-    assert_equal actual, actual
+    assert_equal actual, "x2567"
   end
 
 
+  # rotation tests
+  # key of 12345
+  # a = 16
+  # b = 23
+  # c = 42
+  # d = 54
 
-
-    #think about index number instead of ABCD index % 4 == 2 use C rotation
 
 end

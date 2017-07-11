@@ -40,7 +40,6 @@ class Enigma
     rotation
   end
 
-
   def decrypt(output)
   end
 
@@ -48,7 +47,7 @@ class Enigma
   end
 
   def message_array(message)
-    message_array = message.split('') #slice
+    message_array = message.split('')
   end
 
 

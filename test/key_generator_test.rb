@@ -14,7 +14,7 @@ class KeyGeneratorTest <Minitest::Test
     key_generator = KeyGenerator.new
 
 
-    
+
   end
 
   def test_a_rotation_equal_first_two_key_indexes
