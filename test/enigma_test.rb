@@ -188,7 +188,43 @@ class EncryptTest <Minitest::Test
     assert_equal expected, output
   end
 
+  def test_decrypt_accepts_key_and_date
+    e = Enigma.new
+    my_message = "this is so secret ..end.."
 
+    output = e.encrypt(my_message, "12345", Date.today)
+    actual = e.decrypt(output, "12345", Date.today)
 
+    assert_equal my_message, actual
+  end
+
+  def test_decrypt_returns_a_different_value_with_different_key_or_date
+    e = Enigma.new
+    my_message = "this is so secret ..end.."
+
+    output = e.encrypt(my_message, "12345", Date.today)
+    actual = e.decrypt(output, "23423", Date.today)
+
+    refute_equal my_message, actual
+  end
+
+  def test_decrypt_can_not_accept_date
+    e = Enigma.new
+    my_message = "this is so secret ..end.."
+    output = e.encrypt(my_message, "12345")
+    actual = e.decrypt(output, "12345")
+
+    assert_equal my_message, actual
+  end
+
+  def test_crack
+    e = Enigma.new
+    my_message = "this is so secret ..end.."
+    output = e.encrypt(my_message, "12345")
+    actual = e.crack(output, Date.today)
+    expected = my_message
+
+    assert_equal expected, actual
+  end
 
 end

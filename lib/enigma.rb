@@ -41,8 +41,13 @@ class Enigma
     encrypted_array.join
   end
 
-  def decrypt (message)
-    message_array = message_array(message)
+  def decrypt (output, key = @key, date = @offset.date)
+    if key != @key
+      keygenerator = KeyGenerator.new(key)
+      @offset = OffsetCalculator.new(keygenerator, date)
+    else
+    end
+    message_array = message_array(output)
     decrypted_string = message_array.each_with_index.map do |letter, index|
       decrypt_letter(letter, assign_letter_rotation(index, @offset))
     end
@@ -61,6 +66,13 @@ class Enigma
     else
     end
     rotation
+  end
+
+  def crack(output, date)
+    key = "12345"
+    # every message end with ..end..
+
+
   end
 
 
