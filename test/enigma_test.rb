@@ -46,7 +46,7 @@ class EncryptTest <Minitest::Test
   end
 
   def test_encrypt_message
-    key = KeyGenerator.new([1,1,1,1,1])
+    key = KeyGenerator.new("11111")
     offset_calculator = OffsetCalculator.new(key)
     e = Enigma.new(offset_calculator)
     message = "he"
@@ -57,7 +57,7 @@ class EncryptTest <Minitest::Test
   end
 
   def test_encrypt_message_with_differet_key
-    key = KeyGenerator.new([1,2,3,4,5])
+    key = KeyGenerator.new("12345")
     offset_calculator = OffsetCalculator.new(key, Date.new(2017,7,10))
     e = Enigma.new(offset_calculator)
     message = "he"
@@ -68,7 +68,7 @@ class EncryptTest <Minitest::Test
   end
 
   def test_decrypt_message
-    key = KeyGenerator.new([1,1,1,1,1])
+    key = KeyGenerator.new("11111")
     offset_calculator = OffsetCalculator.new(key)
     e = Enigma.new(offset_calculator)
     message = "wp"
@@ -89,7 +89,7 @@ class EncryptTest <Minitest::Test
   end
 
   def test_encrypt_and_decrypt_hello_world
-    key = KeyGenerator.new([3,2,3,4,5])
+    key = KeyGenerator.new("32345")
     offset_calculator = OffsetCalculator.new(key, Date.new(2017,7,10))
     e = Enigma.new(offset_calculator)
     message = "hello world"
@@ -163,10 +163,31 @@ class EncryptTest <Minitest::Test
   def test_encrypt_method_can_take_key_and_date
     e = Enigma.new
     my_message = "this is so secret ..end.."
-    output = e.encrypt(my_message, "12345", Date.today)
 
-    assert_equal my_message.length, output.length
+    output = e.encrypt(my_message, "12345", Date.today)
+    expected = "94l7n5vm8.a7uzut9ubnu gno"
+
+    assert_equal expected, output
   end
+
+  def test_encrypt_method_can_output_with_different_date
+    e = Enigma.new
+    my_message = "this is so secret ..end.."
+    output = e.encrypt(my_message, "12345", Date.new(2018,7,10))
+    expected = " 9f2o ph9d72v4oo z8ivcaip"
+
+    assert_equal expected, output
+  end
+
+  def test_encrypt_method_takes_a_different_key_and_date
+    e = Enigma.new
+    my_message = "this is so secret ..end.."
+    output = e.encrypt(my_message, "12345", Date.new(2003,7,22))
+
+    expected = "96d7n7nm8a57u1mt9w6nu,.no"
+    assert_equal expected, output
+  end
+
 
 
 

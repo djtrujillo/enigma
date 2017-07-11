@@ -3,9 +3,10 @@ require 'pry'
 class Enigma
   attr_accessor :character_map
 
-  def initialize(offset = OffsetCalculator.new)# key = KeyGenerator.new, offset = OffsetCalculator.new
+  def initialize(offset = OffsetCalculator.new) # key = KeyGenerator.new, offset = OffsetCalculator.new
     @character_map = [*("a".."z"), *("0".."9"), " ", ".", ","]
     @offset = offset
+    @key = offset.key
     # @key = key
     # @offset = offset
 
@@ -27,8 +28,12 @@ class Enigma
     cipher_for_rotation.key(letter)
   end
 
-  def encrypt (message, key = @offset.key, date = @offset.date)
-    # offset = OffsetCalculator.new(key, date)
+  def encrypt (message, key = @key, date = @offset.date)
+    if key != @key
+      keygenerator = KeyGenerator.new(key)
+      @offset = OffsetCalculator.new(keygenerator, date)
+    else
+    end
     message_array = message_array(message)
     encrypted_array = message_array.each_with_index.map do |letter, index|
       encrypt_letter(letter, assign_letter_rotation(index, @offset))

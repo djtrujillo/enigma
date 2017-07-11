@@ -30,8 +30,30 @@ class OffsetCalculatorTest < Minitest::Test
     assert_equal 100717, date
   end
 
+  def test_reformat_date_with_different_date_with_different_date
+    key_generator = KeyGenerator.new
+    key = key_generator
+    offset = OffsetCalculator.new(key, Date.new(2017, 07, 25))
+
+    date = offset.reformat_date
+
+    assert_equal 250717, date
+  end
+
+  def test_square_a_different_date
+    key_generator = KeyGenerator.new("12345")
+    key = key_generator
+    offset = OffsetCalculator.new(key, Date.new(2017, 07, 25))
+    offset.reformat_date
+
+    squared_date = offset.squared_date
+
+    assert_equal 62859014089, squared_date
+  end
+
+
   def test_square_the_date_method
-    key_generator = KeyGenerator.new([1,2,3,4,5])
+    key_generator = KeyGenerator.new("12345")
     key = key_generator
     offset = OffsetCalculator.new(key, Date.new(2017, 07, 10))
     offset.reformat_date
@@ -40,6 +62,19 @@ class OffsetCalculatorTest < Minitest::Test
 
     assert_equal 10143914089, squared_date
   end
+
+  def test_different_last_4_digits
+    key_generator = KeyGenerator.new("12345")
+    offset = OffsetCalculator.new(key_generator, Date.new(2017, 07, 10))
+    offset.reformat_date
+    offset.squared_date
+    expected = "4089"
+    actual = offset.last_4_digits
+
+    assert_equal expected, actual
+  end
+
+  def
 
   def test_find_last_4_digits
     key_generator = KeyGenerator.new
@@ -64,7 +99,7 @@ class OffsetCalculatorTest < Minitest::Test
   end
 
   def test_final_rotation_numbers
-    key_generator = KeyGenerator.new([1,2,3,4,5])
+    key_generator = KeyGenerator.new("12345")
     key = key_generator
     offset = OffsetCalculator.new(key)
 

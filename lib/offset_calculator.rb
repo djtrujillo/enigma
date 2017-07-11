@@ -9,9 +9,9 @@ class OffsetCalculator
               :date
 
   def initialize(key = KeyGenerator.new, date = Date.today)
-    @key_generator = key
-    @key = key.key
     @date = date
+    @key_generator = key
+    @key = @key_generator
     reformat_date
     squared_date
     find_offsets
