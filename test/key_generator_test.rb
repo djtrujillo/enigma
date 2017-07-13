@@ -43,10 +43,4 @@ class KeyGeneratorTest <Minitest::Test
   end
 
 
-
-
-
-
-
-
 end

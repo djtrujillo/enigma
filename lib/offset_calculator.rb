@@ -49,5 +49,4 @@ class OffsetCalculator
 
   end
 
-
 end
