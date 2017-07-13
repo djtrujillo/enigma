@@ -167,34 +167,36 @@ class EncryptTest <Minitest::Test
   end
 
 
-
-
-
-
-
-
-
   #########################################
   #Crack Tests
 
   def test_crack
-    skip
     e = Enigma.new
     my_message = "this is so secret ..end.."
     output = e.encrypt(my_message, "12345")
     actual = e.crack(output, Date.today)
-    expected = my_message
 
-    assert_equal expected, actual
+    assert_equal my_message, actual
   end
 
-  def test_find_last_7_elements
+  def test_crack_a_different_message
+    skip
+    e = Enigma.new
+    my_message = "this is a different message ..end.."
+    output = e.encrypt(my_message, "12345")
+    actual = e.crack(output, Date.today)
+
+    assert_equal my_message, actual
+  end
+
+
+  def test_find_last_4_elements
     e = Enigma.new
     my_message = "this is so secret ..end.."
     output = e.encrypt(my_message, "12345")
 
-    actual =  e.find_last_seven_elements(output)
-    expected = ["b","n","u"," ","g","n","o"]
+    actual =  e.find_last_four_elements(output)
+    expected = [" ","g","n","o"]
 
     assert_equal expected, actual
   end
@@ -219,37 +221,18 @@ class EncryptTest <Minitest::Test
     assert_equal expected, actual
   end
 
-
-
-  def test_encryption_minus_offsets
+  def test_find_offset_rotation
     e = Enigma.new
-    date = Date.new(2017,7,10)
     my_message = "this is so secret ..end.."
-    offsets = e.find_offsets(date)
     output = e.encrypt(my_message, "12345")
+    offset_array = [4,2,0,9]
 
-    expected = ["6", "e", "q", " ", ".", "e", "k"]
-    actual = e.encryption_minus_offsets(output, offsets)
+    expected = [2,0,9,4]
+    actual = e.find_offset_rotation(output,offset_array)
 
     assert_equal expected, actual
   end
-
-  def test_find_rotation
-    skip
-    e = Enigma.new
-    date = Date.new(2017,7,10)
-    my_message = "this is so secret ..end.."
-    offsets = e.find_offsets(date)
-    output = e.encrypt(my_message, "12345")
-
-    # expected = ["6", "e", "q", " ", ".", "e", "k"]
-    actual = find_rotation(e.encryption_minus_offsets(output, offsets))
-    puts actual
-    assert_equal output, actual
-  end
-
 end
-
   # rotation tests
   # key of 32345
   # date of 7/10/17
