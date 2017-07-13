@@ -85,7 +85,9 @@ class Enigma
   # find last four of encryption message
   # based on length of the entire message, find ABCD rotation
   # find offset based on the date
-  # assign those offsets to the last four
+  # rotate offsets based on our ABCD rotation
+  # find remaining rotation (key) by using known encryption and wanted result
+
 
 
 
