@@ -180,7 +180,7 @@ class EncryptTest <Minitest::Test
   end
 
   def test_crack_a_different_message
-    skip
+
     e = Enigma.new
     my_message = "this is a different message ..end.."
     output = e.encrypt(my_message, "12345")
@@ -189,6 +189,14 @@ class EncryptTest <Minitest::Test
     assert_equal my_message, actual
   end
 
+  def test_crack_a_third_message
+    e = Enigma.new
+    my_message = "this is a completely different message ..end.."
+    output = e.encrypt(my_message, "12345")
+    actual = e.crack(output, Date.today)
+
+    assert_equal my_message, actual
+  end
 
   def test_find_last_4_elements
     e = Enigma.new

@@ -1,5 +1,7 @@
 require 'date'
 require 'pry'
+require_relative 'key_generator'
+
 class OffsetCalculator
   attr_reader :key,
               :a_rotation,

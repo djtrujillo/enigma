@@ -1,4 +1,5 @@
 require 'pry'
+require_relative 'offset_calculator'
 
 class Enigma
   attr_accessor :character_map
@@ -103,15 +104,57 @@ class Enigma
   def decrypt_output_array(output, rotation_array, rotated_offset_array)
     output_array = message_array(output)
     cracked_array = []
-    output_array.each_with_index do |char, index|
-      if index % 4 == 1
-        cracked_array << decrypt_letter(char, (rotation_array[0]) + rotated_offset_array[0])
-      elsif index % 4 ==2
-        cracked_array << decrypt_letter(char, (rotation_array[1]) + rotated_offset_array[1])
-      elsif index % 4 == 3
-        cracked_array << decrypt_letter(char, (rotation_array[2]) + rotated_offset_array[2])
-      elsif index % 4 == 0
-        cracked_array << decrypt_letter(char, (rotation_array[3]) + rotated_offset_array[3])
+
+    if @rotation == 1
+      output_array.each_with_index do |char, index|
+        if    index % 4 == 1
+          cracked_array << decrypt_letter(char, (rotation_array[0]) + rotated_offset_array[0])
+        elsif index % 4 == 2
+          cracked_array << decrypt_letter(char, (rotation_array[1]) + rotated_offset_array[1])
+        elsif index % 4 == 3
+          cracked_array << decrypt_letter(char, (rotation_array[2]) + rotated_offset_array[2])
+        elsif index % 4 == 0
+          cracked_array << decrypt_letter(char, (rotation_array[3]) + rotated_offset_array[3])
+        end
+      end
+
+    elsif @rotation == 2
+      output_array.each_with_index do |char, index|
+        if    index % 4 == 2
+          cracked_array << decrypt_letter(char, (rotation_array[0]) + rotated_offset_array[0])
+        elsif index % 4 == 3
+          cracked_array << decrypt_letter(char, (rotation_array[1]) + rotated_offset_array[1])
+        elsif index % 4 == 0
+          cracked_array << decrypt_letter(char, (rotation_array[2]) + rotated_offset_array[2])
+        elsif index % 4 == 1
+          cracked_array << decrypt_letter(char, (rotation_array[3]) + rotated_offset_array[3])
+        end
+      end
+
+    elsif @rotation == 3
+      output_array.each_with_index do |char, index|
+        if    index % 4 == 3
+          cracked_array << decrypt_letter(char, (rotation_array[0]) + rotated_offset_array[0])
+        elsif index % 4 == 0
+          cracked_array << decrypt_letter(char, (rotation_array[1]) + rotated_offset_array[1])
+        elsif index % 4 == 1
+          cracked_array << decrypt_letter(char, (rotation_array[2]) + rotated_offset_array[2])
+        elsif index % 4 == 2
+          cracked_array << decrypt_letter(char, (rotation_array[3]) + rotated_offset_array[3])
+        end
+      end
+
+    elsif @rotation == 0
+      output_array.each_with_index do |char, index|
+        if    index % 4 == 0
+          cracked_array << decrypt_letter(char, (rotation_array[0]) + rotated_offset_array[0])
+        elsif index % 4 == 1
+          cracked_array << decrypt_letter(char, (rotation_array[1]) + rotated_offset_array[1])
+        elsif index % 4 == 2
+          cracked_array << decrypt_letter(char, (rotation_array[2]) + rotated_offset_array[2])
+        elsif index % 4 == 3
+          cracked_array << decrypt_letter(char, (rotation_array[3]) + rotated_offset_array[3])
+        end
       end
     end
     cracked_array.join("")
@@ -134,15 +177,15 @@ class Enigma
     output_array.each_with_index do |char, index|
       if index == output_array.count - 4
         if index % 4 == 0
-          rotation = 0
+          @rotation = 0
         elsif index % 4 == 1
-          rotation = 1
+          @rotation = 1
         elsif index % 4 == 2
-          rotation = 2
+          @rotation = 2
         elsif index % 4 == 3
-          rotation = 3
+          @rotation = 3
         end
-        return offset_array.rotate(rotation)
+        return offset_array.rotate(@rotation)
       end
     end
   end
