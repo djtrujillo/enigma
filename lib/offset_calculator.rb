@@ -49,11 +49,5 @@ class OffsetCalculator
 
   end
 
-  # def run_methods
-  #   reformat_date
-  #   squared_date
-  #   find_offsets
-  #   add_offsets_to_rotation
-  # end
 
 end
