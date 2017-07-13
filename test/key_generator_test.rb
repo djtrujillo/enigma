@@ -10,13 +10,6 @@ class KeyGeneratorTest <Minitest::Test
     assert_instance_of KeyGenerator, key_generator
   end
 
-  def test_key_generator_for_refute
-    key_generator = KeyGenerator.new
-
-
-
-  end
-
   def test_a_rotation_equal_first_two_key_indexes
     key_generator = KeyGenerator.new
     key = key_generator.key

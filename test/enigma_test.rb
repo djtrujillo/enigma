@@ -100,57 +100,6 @@ class EncryptTest <Minitest::Test
     assert_equal message, actual
   end
 
-  # rotation tests
-  # key of 32345
-  # date of 7/10/17
-  # a = 36
-  # b = 23
-  # c = 42
-  # d = 54
-
-  # rotation tests
-  # key of 12345
-  # date of 7/10/17
-  # a = 16
-  # b = 23
-  # c = 42
-  # d = 54
-
-  # rotation tests
-  # key of 11111
-  # date 7/10/17
-  # a = 15
-  # b = 11
-  # c = 19
-  # d = 20
-
-  # rotation tests
-  # key of 22222
-  # date 7/10/17
-  # a = 26
-  # b = 22
-  # c = 30
-  # d = 31
-
-  # rotation tests
-  # key of 12131
-  # date 7/10/17
-  # a = 16
-  # b = 21
-  # c = 21
-  # d = 40
-  #
-  # def test_find_rotation_numbers
-  #   key = KeyGenerator.new ([3,2,3,4,5])
-  #   offset = OffsetCalculator.new(key, Date.new(2017, 07, 10))
-  #   offset.run_methods
-  #   puts offset.a_rotation.inspect
-  #   puts offset.b_rotation.inspect
-  #   puts offset.c_rotation.inspect
-  #   puts offset.d_rotation.inspect
-  # end
-
-
   def test_encrypt_method_displays_encrypted_message
     e = Enigma.new
     my_message = "this is so secret ..end.."
@@ -217,7 +166,19 @@ class EncryptTest <Minitest::Test
     assert_equal my_message, actual
   end
 
+
+
+
+
+
+
+
+
+  #########################################
+  #Crack Tests
+
   def test_crack
+    skip
     e = Enigma.new
     my_message = "this is so secret ..end.."
     output = e.encrypt(my_message, "12345")
@@ -227,4 +188,114 @@ class EncryptTest <Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_find_last_7_elements
+    e = Enigma.new
+    my_message = "this is so secret ..end.."
+    output = e.encrypt(my_message, "12345")
+
+    actual =  e.find_last_seven_elements(output)
+    expected = ["b","n","u"," ","g","n","o"]
+
+    assert_equal expected, actual
+  end
+
+  def test_find_offsets_based_on_date
+    e = Enigma.new
+    date = Date.new(2017,7,10)
+
+    expected = [4,0,8,9]
+    actual = e.find_offsets(date)
+
+    assert_equal expected, actual
+  end
+
+  def test_find_different_offsets_based_on_different_date
+    e = Enigma.new
+    date = Date.new(2003,7,10)
+
+    expected = [4,2,0,9]
+    actual = e.find_offsets(date)
+
+    assert_equal expected, actual
+  end
+
+
+
+  def test_encryption_minus_offsets
+    e = Enigma.new
+    date = Date.new(2017,7,10)
+    my_message = "this is so secret ..end.."
+    offsets = e.find_offsets(date)
+    output = e.encrypt(my_message, "12345")
+
+    expected = ["6", "e", "q", " ", ".", "e", "k"]
+    actual = e.encryption_minus_offsets(output, offsets)
+
+    assert_equal expected, actual
+  end
+
+  def test_find_rotation
+    skip
+    e = Enigma.new
+    date = Date.new(2017,7,10)
+    my_message = "this is so secret ..end.."
+    offsets = e.find_offsets(date)
+    output = e.encrypt(my_message, "12345")
+
+    # expected = ["6", "e", "q", " ", ".", "e", "k"]
+    actual = find_rotation(e.encryption_minus_offsets(output, offsets))
+    puts actual
+    assert_equal output, actual
+  end
+
 end
+
+  # rotation tests
+  # key of 32345
+  # date of 7/10/17
+  # a = 36
+  # b = 23
+  # c = 42
+  # d = 54
+
+  # rotation tests
+  # key of 12345
+  # date of 7/10/17
+  # a = 16
+  # b = 23
+  # c = 42
+  # d = 54
+
+  # rotation tests
+  # key of 11111
+  # date 7/10/17
+  # a = 15
+  # b = 11
+  # c = 19
+  # d = 20
+
+  # rotation tests
+  # key of 22222
+  # date 7/10/17
+  # a = 26
+  # b = 22
+  # c = 30
+  # d = 31
+
+  # rotation tests
+  # key of 12131
+  # date 7/10/17
+  # a = 16
+  # b = 21
+  # c = 21
+  # d = 40
+  #
+  # def test_find_rotation_numbers
+  #   key = KeyGenerator.new ([3,2,3,4,5])
+  #   offset = OffsetCalculator.new(key, Date.new(2017, 07, 10))
+  #   offset.run_methods
+  #   puts offset.a_rotation.inspect
+  #   puts offset.b_rotation.inspect
+  #   puts offset.c_rotation.inspect
+  #   puts offset.d_rotation.inspect
+  # end
