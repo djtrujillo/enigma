@@ -16,7 +16,6 @@ class EncryptTest <Minitest::Test
     assert_equal expected, actual
   end
 
-
   def test_method_turns_message_into_array_of_characters
     e = Enigma.new
     message = "hello"
@@ -180,7 +179,6 @@ class EncryptTest <Minitest::Test
   end
 
   def test_crack_a_different_message
-
     e = Enigma.new
     my_message = "this is a different message ..end.."
     output = e.encrypt(my_message, "12345")

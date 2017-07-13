@@ -67,7 +67,6 @@ class Enigma
     rotation
   end
 
-
   def message_array(message)
     message_array = message.split('')
   end
@@ -76,7 +75,7 @@ class Enigma
   ###################################################
   #Crack Methods
 
-  def crack(output, date)
+  def crack(output, date = Date.today)
       decryptedlastfour = ["n","d",".","."]
       lastfour = find_last_four_elements(output)
       offset_array = find_offsets(date)
@@ -99,7 +98,6 @@ class Enigma
     end
     rotation_array
   end
-
 
   def decrypt_output_array(output, rotation_array, rotated_offset_array)
     output_array = message_array(output)
@@ -159,7 +157,6 @@ class Enigma
     end
     cracked_array.join("")
   end
-
 
   def find_last_four_elements(output)
     output_array = output.split("")
