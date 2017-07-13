@@ -2,10 +2,6 @@ require './lib/enigma'
 require './lib/offset_calculator'
 require './lib/key_generator'
 require './lib/decrypt'
-# require './data/encrypted'
-# require './data/decrypted'
-# require './data/message'
-puts Dir.chdir './data'
 
 message = ARGV[0]
 encrypted = ARGV[1]

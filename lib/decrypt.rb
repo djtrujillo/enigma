@@ -1,11 +1,6 @@
 require './lib/enigma'
 require './lib/offset_calculator'
 require './lib/key_generator'
-# require './lib/encrypt'
-# require './data/encrypted'
-# require './data/decrypted'
-# require './data/message'
-
 
 encrypted = ARGV[0]
 decrypted = ARGV[1]
